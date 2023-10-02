@@ -15,9 +15,9 @@ const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/survival" element={<Survival />} />
-        <Route path="/fortyLines" element={<FortyLines />}/>
+        <Route path="/tetris/" element={<Home />} />
+        <Route path="/tetris/survival" element={<Survival />} />
+        <Route path="/tetris/fortyLines" element={<FortyLines />}/>
       </Route>
       
     )
