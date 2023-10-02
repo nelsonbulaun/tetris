@@ -1,6 +1,6 @@
 import "./index.css";
 import Board from "./components/board";
-import { useGame } from "./hooks/useGame";
+import { useGameSurvival } from "./hooks/useGameSurvival";
 import {
   updateSmallBoard,
   rotateTetrominoClockwise,
@@ -42,7 +42,7 @@ function Survival() {
     gameOver,
     level,
     gameSpeed
-  } = useGame();
+  } = useGameSurvival();
   const idleBoard = createBoard();
   const heldBoard = createBoard(4, 4);
   function holdingBoard(heldBlock) {
@@ -129,7 +129,7 @@ function Survival() {
               {" "}
               Restart Game
             </button>{" "}
-            <Link to={"/"}>
+            <Link to={"/tetris"}>
               <button>Return to Title Screen</button>
             </Link>
           </div>

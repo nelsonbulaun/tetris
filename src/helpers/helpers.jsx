@@ -1,6 +1,6 @@
 import { rowCount, columnCount } from "../components/constants";
 import { EmptyCell } from "../components/tetrominos";
-import { findGhostPosition } from "../hooks/useGame";
+import { findGhostPosition } from "../hooks/useGameSurvival";
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)

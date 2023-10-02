@@ -4,7 +4,7 @@ import { useBoard, bottomedOut } from "./useBoard";
 import { EmptyCell, randomTetromino } from "../components/tetrominos";
 import { clearRows, updateBoard } from "../helpers/helpers";
 
-export function useGame() {
+export function useGameSurvival() {
   const [inGame, setInGame] = useState(false);
   const [paused, setPaused] = useState(false);
   const [gameSpeed, setGameSpeed] = useState(null);
@@ -37,14 +37,14 @@ export function useGame() {
       return;
     }
     gameTick();
-  }, gameSpeed); // Lower is faster
+  }, gameSpeed); 
 
   const start = useCallback(() => {
     setInGame(true);
     setNumRowsCleared(0);
     setScore(0);
     setLevel(1);
-    setGameSpeed(800-((1)*7))
+    setGameSpeed(800);
     setNextBlocks(generateNextBlocks());
     setHeldBlock(null);
     setTime(0);
@@ -100,7 +100,7 @@ export function useGame() {
       );
       setScore(prevScore => prevScore += scoreValue((checkFilledRows(updatedBoard)), level));
       if (
-        bottomedOut(updatedBoard, { x: 3, y: 0 }, tetrominoBlockType, tetromino)
+        bottomedOut(updatedBoard, { x: 3, y: -1 }, tetrominoBlockType, tetromino)
       ) {
         setInGame(false);
         setGameOver(true);

@@ -8,10 +8,10 @@ export const Home = () => {
       <div className="homeContainer">
         <div className="logoName">Tetris</div>
         <div className="buttonContainer">
-        <Link to={"/survival"}>
+        <Link to={"/tetris/survival"}>
           <button>Survival Mode</button>
         </Link>
-        <Link to={"/fortyLines"}>
+        <Link to={"/tetris/fortyLines"}>
           <button>Forty Lines</button>
         </Link>
       </div>

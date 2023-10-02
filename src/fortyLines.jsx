@@ -100,7 +100,7 @@ function FortyLines() {
             <button className="startButton" onClick={start}>
               Try Again?
             </button>
-            <Link to={"/"}>
+            <Link to={"/tetris"}>
               <button>Return to Title Screen</button>
             </Link>{" "}
           </div>
