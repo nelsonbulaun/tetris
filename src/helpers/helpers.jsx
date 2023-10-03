@@ -144,6 +144,7 @@ export function playSoundEffect(val){
       break;
     case "harddrop":
       hardDropSE.play();
+      break;
     default:
       break;
   }
