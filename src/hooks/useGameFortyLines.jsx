@@ -226,7 +226,7 @@ export function useGameFortyLines() {
           startMovement(moveRight((movingRight = true)));
           break;
         case "ArrowDown":
-          playSoundEffect("harddrop");
+
           moveDown();
           break;
         case "ArrowUp":
@@ -236,6 +236,7 @@ export function useGameFortyLines() {
           hold(tetrominoBlockType);
           break;
         case " ":
+          playSoundEffect("harddrop");
           startMovement(
             fastDrop(board, position, tetrominoBlockType, tetromino)
           );
