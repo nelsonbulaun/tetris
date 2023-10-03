@@ -37,7 +37,8 @@ Sounds used:
 
 
 ## Future Improvements
-Implementation of a multiplayer game mode, similar to that Jstris or Tetris Battles, will be considered through creating a back-end, to emit socket information to and from users connected on the client side. 
+* Implementation of a multiplayer game mode, similar to that Jstris or Tetris Battles, will be considered through creating a back-end, to emit socket information to and from users connected on the client side. 
+* Sound effects can often be delayed and/or omitted upon continuous call, and will be looked upon for fixing in the meantime. 
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
