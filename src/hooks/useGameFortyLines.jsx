@@ -14,7 +14,6 @@ export function useGameFortyLines() {
   const [numRowsCleared, setNumRowsCleared] = useState(0);
   const [nextBlocks, setNextBlocks] = useState([]);
   const [heldBlock, setHeldBlock] = useState(null);
-  const [score, setScore] = useState(0);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -52,7 +51,6 @@ export function useGameFortyLines() {
     setInGame(true);
     setGameSpeed(500);
     setNumRowsCleared(0);
-    setScore(0);
     setTime(0);
     setIsRunning(true);
     setNextBlocks(generateNextBlocks());
@@ -109,10 +107,6 @@ export function useGameFortyLines() {
         tetromino
       );
       playClearEffect(checkFilledRows(updatedBoard));
-      setScore(
-        (prevScore) =>
-          (prevScore += scoreValue(checkFilledRows(updatedBoard), 1))
-      );
       if (
         bottomedOut(updatedBoard, { x: 3, y: 0 }, tetrominoBlockType, tetromino)
       ) {
@@ -273,7 +267,6 @@ export function useGameFortyLines() {
     start,
     inGame,
     numRowsCleared,
-    score,
     nextBlocks,
     heldBlock,
     paused,
@@ -330,24 +323,3 @@ const canMoveToPosition = (board, position, tetromino) => {
 
   return true;
 };
-
-function scoreValue(rowsCleared, level) {
-  let scoreAmount = 0;
-  switch (rowsCleared) {
-    case 1:
-      scoreAmount = 100 * level;
-      break;
-    case 2:
-      scoreAmount = 300 * level;
-      break;
-    case 3:
-      scoreAmount = 500 * level;
-      break;
-    case 4:
-      scoreAmount = 800 * level;
-      break;
-    default:
-      break;
-  }
-  return scoreAmount;
-}
