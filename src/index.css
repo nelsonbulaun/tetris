@@ -116,6 +116,7 @@ button:focus-visible {
   row-gap: 2px;
 }
 .container {
+  
   height: fit-content;
   width: 100vw;
   position: relative;
@@ -136,10 +137,13 @@ button:focus-visible {
 
 .homeContainer {
   font-family: "PressStart2PRegular";
+  align-self: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
   position: absolute;
+  height: 100vh;
+  width: 100vw;
 }
 
 .logoName {
@@ -351,4 +355,12 @@ button:focus-visible {
 @font-face {
   font-family: "PressStart2PRegular";
   src: url("./assets/PressStart2P-Regular.ttf");
+}
+
+.titleMusic{
+  place-self:center;
+  width: 10%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }

@@ -1,16 +1,17 @@
 import { rowCount, columnCount } from "../components/constants";
 import { EmptyCell } from "../components/tetrominos";
 import { findGhostPosition } from "../hooks/useGameSurvival";
-import singleSoundEffect from "../assets/se_game_single.wav";
-import doubleSoundEffect from "../assets/se_game_double.wav";
-import tripleSoundEffect from "../assets/se_game_triple.wav";
-import tetrisSoundEffect from "../assets/se_game_tetris.wav";
-import hardDropSoundEffect from "../assets/se_game_harddrop.wav";
-import landingSoundEffect from "../assets/se_game_landing.wav";
-import nextLevelSoundFile from "../assets/next-level.mp3";
-import gameOverSoundFile from "../assets/game-over.mp3";
-import rotateSoundEffect from "../assets/se_game_rotate.wav";
-import moveSoundEffect from "../assets/se_game_move.mp3";
+import singleSoundEffect from "../assets/audio/se_game_single.wav";
+import doubleSoundEffect from "../assets/audio/se_game_double.wav";
+import tripleSoundEffect from "../assets/audio/se_game_triple.wav";
+import tetrisSoundEffect from "../assets/audio/se_game_tetris.wav";
+import hardDropSoundEffect from "../assets/audio/se_game_harddrop.wav";
+import landingSoundEffect from "../assets/audio/se_game_landing.wav";
+import nextLevelSoundFile from "../assets/audio/next-level.mp3";
+import gameOverSoundFile from "../assets/audio/game-over.mp3";
+import rotateSoundEffect from "../assets/audio/se_game_rotate.wav";
+import finishSoundEffect from "../assets/audio/me_game_iget.wav";
+import moveSoundEffect from "../assets/audio/se_game_move.mp3";
 const singleSE = new Audio(singleSoundEffect);
 const doubleSE = new Audio(doubleSoundEffect);
 const tripleSE = new Audio(tripleSoundEffect);
@@ -21,6 +22,7 @@ const rotateSE = new Audio(rotateSoundEffect);
 const moveSE = new Audio(moveSoundEffect);
 const hardDropSE = new Audio(hardDropSoundEffect);
 const landingSE = new Audio(landingSoundEffect);
+const finishSE = new Audio(finishSoundEffect);
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)
@@ -147,6 +149,9 @@ export function playSoundEffect(val) {
     case "landing":
       landingSE.play();
       break;
+      case "finish":
+        finishSE.play();
+        break;
     default:
       break;
   }

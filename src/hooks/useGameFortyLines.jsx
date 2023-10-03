@@ -4,7 +4,7 @@ import { useBoard, bottomedOut } from "./useBoard";
 import { EmptyCell, randomTetromino } from "../components/tetrominos";
 import { clearRows, updateBoard, playClearEffect, playSoundEffect, changeSEVolume } from "../helpers/helpers";
 
-import Korobeiniki from "../assets/Korobeiniki.mp3";
+import Korobeiniki from "../assets/audio/Korobeiniki.mp3";
 const korobeinikiAudio = new Audio(Korobeiniki);
 
 export function useGameFortyLines() {
@@ -192,6 +192,7 @@ export function useGameFortyLines() {
       setInGame(false);
       setGameOver(true);
       korobeinikiAudio.pause();
+      playSoundEffect("finish");
     }
 
     // eslint-disable-next-line no-unused-vars

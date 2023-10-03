@@ -9,7 +9,7 @@ import {
   changeSEVolume,
   updateBoard,
 } from "../helpers/helpers";
-import Korobeiniki from "../assets/Korobeiniki.mp3";
+import Korobeiniki from "../assets/audio/Korobeiniki.mp3";
 const korobeinikiAudio = new Audio(Korobeiniki);
 
 
