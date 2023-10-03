@@ -8,6 +8,7 @@ import singleSoundEffect from "../assets/se_game_single.wav";
 import doubleSoundEffect from "../assets/se_game_double.wav";
 import tripleSoundEffect from "../assets/se_game_triple.wav";
 import tetrisSoundEffect from "../assets/se_game_tetris.wav";
+import hardDropSoundEffect from "../assets/se_game_harddrop.wav";
 const singleSE = new Audio(singleSoundEffect);
 const doubleSE = new Audio(doubleSoundEffect);
 const tripleSE = new Audio(tripleSoundEffect);
@@ -20,6 +21,7 @@ const nextLevelSound = new Audio(nextLevelSoundFile);
 const gameOverSound = new Audio(gameOverSoundFile);
 const rotateSE = new Audio(rotateSoundEffect);
 const moveSE = new Audio(moveSoundEffect);
+const hardDropSE = new Audio(hardDropSoundEffect);
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)
@@ -140,6 +142,8 @@ export function playSoundEffect(val){
     case "move":
       moveSE.play();
       break;
+    case "harddrop":
+      hardDropSE.play();
     default:
       break;
   }

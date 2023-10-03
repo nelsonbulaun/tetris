@@ -242,6 +242,7 @@ export function useGameSurvival() {
           startMovement(moveRight((movingRight = true)));
           break;
         case "ArrowDown":
+          playSoundEffect("harddrop");
           moveDown();
           break;
         case "ArrowUp":
