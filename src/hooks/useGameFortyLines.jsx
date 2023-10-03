@@ -2,7 +2,10 @@ import { useState, useCallback, useEffect } from "react";
 import { useInterval } from "./useInterval";
 import { useBoard, bottomedOut } from "./useBoard";
 import { EmptyCell, randomTetromino } from "../components/tetrominos";
-import { clearRows, updateBoard } from "../helpers/helpers";
+import { clearRows, updateBoard, playClearEffect, playSoundEffect, changeSEVolume } from "../helpers/helpers";
+
+import Korobeiniki from "../assets/Korobeiniki.mp3";
+const korobeinikiAudio = new Audio(Korobeiniki);
 
 export function useGameFortyLines() {
   const [inGame, setInGame] = useState(false);
@@ -15,11 +18,19 @@ export function useGameFortyLines() {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [volumeLevel, setVolumeLevel] = useState(0.4);
+  const [soundEffectVolume, setSoundEffectVolume] = useState(0.4);
   const keyRepeatDelay = 200;
+
   const [
     { board, position, tetrominoBlockType, tetromino },
     dispatchBoardState,
   ] = useBoard();
+
+  
+  // Volume Functions
+  changeSEVolume(soundEffectVolume);
+  korobeinikiAudio.volume = volumeLevel;
 
   const gameTick = useCallback(() => {
     if (bottomedOut(board, position, tetrominoBlockType, tetromino)) {
@@ -47,6 +58,7 @@ export function useGameFortyLines() {
     setNextBlocks(generateNextBlocks());
     setHeldBlock(null);
     dispatchBoardState({ type: "start" });
+    korobeinikiAudio.play();
     setGameOver(false);
   }, [dispatchBoardState]);
 
@@ -96,6 +108,7 @@ export function useGameFortyLines() {
         tetrominoBlockType,
         tetromino
       );
+      playClearEffect(checkFilledRows(updatedBoard));
       setScore(
         (prevScore) =>
           (prevScore += scoreValue(checkFilledRows(updatedBoard), 1))
@@ -106,6 +119,8 @@ export function useGameFortyLines() {
         setInGame(false);
         setGameOver(true);
         setIsRunning(false);
+        playSoundEffect("gameover");
+        korobeinikiAudio.pause();
       }
       const newBlockType = randomTetromino();
       setNextBlocks((prevNextBlocks) => {
@@ -131,6 +146,7 @@ export function useGameFortyLines() {
     setGameSpeed(25);
   };
   const rotate = (tetromino) => {
+    playSoundEffect("rotate");
     dispatchBoardState({ type: "rotate", tetromino: tetromino });
   };
   const fastDrop = (board, position, tetrominoBlockType, tetromino) => {
@@ -161,9 +177,11 @@ export function useGameFortyLines() {
   };
   const pause = () => {
     if (inGame === true) {
+      korobeinikiAudio.pause();
       setInGame(false);
       setPaused(true);
     } else {
+      korobeinikiAudio.play();
       setInGame(true);
       setPaused(false);
     }
@@ -171,7 +189,7 @@ export function useGameFortyLines() {
   useEffect(() => {
     // // eslint-disable-next-line no-unused-vars
     let intervalId = 0;
-    if (isRunning) {
+    if (isRunning && !paused) {
       intervalId = setInterval(() => setTime(time + 1), 10);
     }
     if (numRowsCleared >= 40) {
@@ -190,7 +208,9 @@ export function useGameFortyLines() {
         action();
       }, keyRepeatDelay);
     };
-
+    if (korobeinikiAudio.ended && inGame) {
+      korobeinikiAudio.play();
+    }
     const stopMovement = () => {
       clearInterval(movementInterval);
     };
@@ -198,9 +218,11 @@ export function useGameFortyLines() {
     const handleKeyDown = (event) => {
       switch (event.key) {
         case "ArrowLeft":
+          playSoundEffect("move");
           startMovement(moveLeft((movingLeft = true)));
           break;
         case "ArrowRight":
+          playSoundEffect("move");
           startMovement(moveRight((movingRight = true)));
           break;
         case "ArrowDown":
@@ -256,6 +278,10 @@ export function useGameFortyLines() {
     isRunning,
     time,
     gameOver,
+    volumeLevel,
+    setVolumeLevel,
+    soundEffectVolume,
+    setSoundEffectVolume,
   };
 }
 

@@ -1,6 +1,25 @@
 import { rowCount, columnCount } from "../components/constants";
 import { EmptyCell } from "../components/tetrominos";
 import { findGhostPosition } from "../hooks/useGameSurvival";
+// import nextLevelSound from "../assets/next-level.mp3";
+// import gameOverSound from "../assets/game-over.mp3";
+// import Korobeiniki from "../assets/Korobeiniki.mp3";
+import singleSoundEffect from "../assets/se_game_single.wav";
+import doubleSoundEffect from "../assets/se_game_double.wav";
+import tripleSoundEffect from "../assets/se_game_triple.wav";
+import tetrisSoundEffect from "../assets/se_game_tetris.wav";
+const singleSE = new Audio(singleSoundEffect);
+const doubleSE = new Audio(doubleSoundEffect);
+const tripleSE = new Audio(tripleSoundEffect);
+const tetrisSE = new Audio(tetrisSoundEffect);
+import nextLevelSoundFile from "../assets/next-level.mp3";
+import gameOverSoundFile from "../assets/game-over.mp3";
+import rotateSoundEffect from "../assets/se_game_rotate.wav";
+import moveSoundEffect from "../assets/se_game_move.mp3";
+const nextLevelSound = new Audio(nextLevelSoundFile);
+const gameOverSound = new Audio(gameOverSoundFile);
+const rotateSE = new Audio(rotateSoundEffect);
+const moveSE = new Audio(moveSoundEffect);
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)
@@ -78,4 +97,50 @@ export function rotateTetrominoClockwise(currentTetromino) {
   }
 
   return rotatedShape;
+}
+
+export function playClearEffect(val){
+  switch (val){
+    case 1:
+      singleSE.play();
+      break;
+    case 2:
+      doubleSE.play();
+      break;
+    case 3:
+      tripleSE.play();
+      break;
+    case 4:
+      tetrisSE.play();
+      break;
+  }
+}
+export function changeSEVolume(val){
+  singleSE.volume = val;
+  doubleSE.volume = val;
+  tripleSE.volume = val;
+  tetrisSE.volume = val;
+  nextLevelSound.volume = val;
+  gameOverSound.volume = val;
+  rotateSE.volume = val;
+  moveSE.volume = val;
+}
+
+export function playSoundEffect(val){
+  switch (val){
+    case "nextlevel":
+      nextLevelSound.play();
+      break;
+    case "gameover":
+      gameOverSound.play();
+      break;
+    case "rotate":
+      rotateSE.play();
+      break;
+    case "move":
+      moveSE.play();
+      break;
+    default:
+      break;
+  }
 }

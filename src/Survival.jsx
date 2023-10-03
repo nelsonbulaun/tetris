@@ -41,7 +41,10 @@ function Survival() {
     time,
     gameOver,
     level,
-    gameSpeed
+    gameSpeed,
+    volumeLevel,
+    setVolumeLevel,
+    soundEffectVolume, setSoundEffectVolume
   } = useGameSurvival();
   const idleBoard = createBoard();
   const heldBoard = createBoard(4, 4);
@@ -132,6 +135,28 @@ function Survival() {
             <Link to={"/tetris"}>
               <button>Return to Title Screen</button>
             </Link>
+            Music Volume:
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={volumeLevel}
+              onChange={(event) => {
+                setVolumeLevel(event.target.valueAsNumber);
+              }}
+            />
+            Sound Effect Volume:
+               <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={soundEffectVolume}
+              onChange={(event) => {
+                setSoundEffectVolume(event.target.valueAsNumber);
+              }}
+            />
           </div>
         </div>
       ) : (
@@ -139,37 +164,37 @@ function Survival() {
       )}
       <div className="left-side">
         <div className="topLeft">
-        <div className="heldText">Held Block</div>
-        <div className="nextBlockContainer">
-          {!inGame ? (
-            <Board currentBoard={heldBoard} />
-          ) : (
-            <Board currentBoard={holdingBoard(heldBlock)} />
-          )}
-        </div>
+          <div className="heldText">Held Block</div>
+          <div className="nextBlockContainer">
+            {!inGame ? (
+              <Board currentBoard={heldBoard} />
+            ) : (
+              <Board currentBoard={holdingBoard(heldBlock)} />
+            )}
+          </div>
         </div>
         <div className="gapSpace"></div>
         <div className="bottomLeft">
-        <div className="scoringDetails">
-          <div>Rows Count:</div>
-          <div>{numRowsCleared}</div>
-          <div>Score:</div>
-          <div>{score}</div>
-          <div>Level:</div>
-          <div>{level}</div>
-          <div>Gamespeed:</div>
-          <div>{gameSpeed}</div>
-          <div> Time:</div>
-          <div>
-            {" "}
-            {minutes.toString().padStart(2, "0")}:
-            {seconds.toString().padStart(2, "0")}:
-            {milliseconds.toString().padStart(2, "0")}
-          </div>
+          <div className="scoringDetails">
+            <div>Rows Count:</div>
+            <div>{numRowsCleared}</div>
+            <div>Score:</div>
+            <div>{score}</div>
+            <div>Level:</div>
+            <div>{level}</div>
+            <div>Gamespeed:</div>
+            <div>{gameSpeed}</div>
+            <div> Time:</div>
+            <div>
+              {" "}
+              {minutes.toString().padStart(2, "0")}:
+              {seconds.toString().padStart(2, "0")}:
+              {milliseconds.toString().padStart(2, "0")}
+            </div>
           </div>
         </div>
       </div>
-      
+
       <div className="game">
         <div className="cellHolder">
           {!inGame ? (

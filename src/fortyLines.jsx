@@ -40,7 +40,9 @@ function FortyLines() {
     score,
     isRunning,
     time,
-    gameOver,
+    gameOver, volumeLevel,
+    setVolumeLevel,
+    soundEffectVolume, setSoundEffectVolume
   } = useGameFortyLines();
   const minutes = Math.floor((time % 360000) / 6000);
   const seconds = Math.floor((time % 6000) / 100);
@@ -150,6 +152,28 @@ function FortyLines() {
             <Link to={"/"}>
               <button>Return to Title Screen</button>
             </Link>
+            Music Volume:
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={volumeLevel}
+              onChange={(event) => {
+                setVolumeLevel(event.target.valueAsNumber);
+              }}
+            />
+            Sound Effect Volume:
+               <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={soundEffectVolume}
+              onChange={(event) => {
+                setSoundEffectVolume(event.target.valueAsNumber);
+              }}
+            />
           </div>
         </div>
       ) : (
