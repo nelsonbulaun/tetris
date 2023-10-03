@@ -37,7 +37,6 @@ function FortyLines() {
     nextBlocks,
     heldBlock,
     paused,
-    score,
     isRunning,
     time,
     gameOver, volumeLevel,
@@ -190,7 +189,6 @@ function FortyLines() {
           )}
         </div>
         <div>Rows Count:{numRowsCleared}</div>
-        <div>Score:{score}</div>
         <div>
           {" "}
           time: {minutes.toString().padStart(2, "0")}:
