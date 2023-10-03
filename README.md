@@ -43,9 +43,7 @@ Sounds used:
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [Conner Ardman's Youtube Channel](https://www.youtube.com/@ConnerArdman)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
