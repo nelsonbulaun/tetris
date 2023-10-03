@@ -190,6 +190,7 @@ export function useGameFortyLines() {
       setIsRunning(false);
       setInGame(false);
       setGameOver(true);
+      korobeinikiAudio.pause();
     }
 
     // eslint-disable-next-line no-unused-vars

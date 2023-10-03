@@ -148,7 +148,7 @@ function FortyLines() {
               {" "}
               Restart Game
             </button>{" "}
-            <Link to={"/"}>
+            <Link to={"/tetris"}>
               <button>Return to Title Screen</button>
             </Link>
             Music Volume:
