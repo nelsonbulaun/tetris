@@ -1,27 +1,26 @@
 import { rowCount, columnCount } from "../components/constants";
 import { EmptyCell } from "../components/tetrominos";
 import { findGhostPosition } from "../hooks/useGameSurvival";
-// import nextLevelSound from "../assets/next-level.mp3";
-// import gameOverSound from "../assets/game-over.mp3";
-// import Korobeiniki from "../assets/Korobeiniki.mp3";
 import singleSoundEffect from "../assets/se_game_single.wav";
 import doubleSoundEffect from "../assets/se_game_double.wav";
 import tripleSoundEffect from "../assets/se_game_triple.wav";
 import tetrisSoundEffect from "../assets/se_game_tetris.wav";
 import hardDropSoundEffect from "../assets/se_game_harddrop.wav";
-const singleSE = new Audio(singleSoundEffect);
-const doubleSE = new Audio(doubleSoundEffect);
-const tripleSE = new Audio(tripleSoundEffect);
-const tetrisSE = new Audio(tetrisSoundEffect);
+import landingSoundEffect from "../assets/se_game_landing.wav";
 import nextLevelSoundFile from "../assets/next-level.mp3";
 import gameOverSoundFile from "../assets/game-over.mp3";
 import rotateSoundEffect from "../assets/se_game_rotate.wav";
 import moveSoundEffect from "../assets/se_game_move.mp3";
+const singleSE = new Audio(singleSoundEffect);
+const doubleSE = new Audio(doubleSoundEffect);
+const tripleSE = new Audio(tripleSoundEffect);
+const tetrisSE = new Audio(tetrisSoundEffect);
 const nextLevelSound = new Audio(nextLevelSoundFile);
 const gameOverSound = new Audio(gameOverSoundFile);
 const rotateSE = new Audio(rotateSoundEffect);
 const moveSE = new Audio(moveSoundEffect);
 const hardDropSE = new Audio(hardDropSoundEffect);
+const landingSE = new Audio(landingSoundEffect);
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)
@@ -62,7 +61,7 @@ export const updateBoard = (board, position, tetrominoBlockType, tetromino) => {
             clonedBoard[ghostPosition + rowIndex][position.x + colIndex] ===
               EmptyCell.Empty
           ) {
-            clonedBoard[ghostPosition + rowIndex][position.x + colIndex] = "G"; 
+            clonedBoard[ghostPosition + rowIndex][position.x + colIndex] = "G";
           }
         }
       });
@@ -101,8 +100,8 @@ export function rotateTetrominoClockwise(currentTetromino) {
   return rotatedShape;
 }
 
-export function playClearEffect(val){
-  switch (val){
+export function playClearEffect(val) {
+  switch (val) {
     case 1:
       singleSE.play();
       break;
@@ -117,7 +116,7 @@ export function playClearEffect(val){
       break;
   }
 }
-export function changeSEVolume(val){
+export function changeSEVolume(val) {
   singleSE.volume = val;
   doubleSE.volume = val;
   tripleSE.volume = val;
@@ -128,8 +127,8 @@ export function changeSEVolume(val){
   moveSE.volume = val;
 }
 
-export function playSoundEffect(val){
-  switch (val){
+export function playSoundEffect(val) {
+  switch (val) {
     case "nextlevel":
       nextLevelSound.play();
       break;
@@ -144,6 +143,9 @@ export function playSoundEffect(val){
       break;
     case "harddrop":
       hardDropSE.play();
+      break;
+    case "landing":
+      landingSE.play();
       break;
     default:
       break;

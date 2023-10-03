@@ -106,6 +106,7 @@ export function useGameFortyLines() {
         tetrominoBlockType,
         tetromino
       );
+      playSoundEffect("landing");
       playClearEffect(checkFilledRows(updatedBoard));
       if (
         bottomedOut(updatedBoard, { x: 3, y: 0 }, tetrominoBlockType, tetromino)

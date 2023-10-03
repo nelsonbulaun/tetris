@@ -124,6 +124,7 @@ export function useGameSurvival() {
         tetrominoBlockType,
         tetromino
       );
+      playSoundEffect("landing");
       playClearEffect(checkCountFilledRows(updatedBoard));
       setScore(
         (prevScore) =>
