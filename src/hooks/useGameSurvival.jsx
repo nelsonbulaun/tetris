@@ -79,6 +79,16 @@ export function useGameSurvival() {
     });
     return amountCleared;
   }
+  
+  function checkCountFilledRows(board) {
+    let amountCleared = 0;
+    board.forEach((row) => {
+      if (row.every((cell) => cell !== EmptyCell.Empty)) {
+        amountCleared += 1;
+      }
+    });
+    return amountCleared;
+  }
   function findGhostPosition(board, position, tetrominoBlockType, tetromino) {
     let lowestRow = -1;
     for (let rowIndex = 19; rowIndex >= 0; rowIndex--) {
@@ -114,7 +124,7 @@ export function useGameSurvival() {
         tetrominoBlockType,
         tetromino
       );
-      playClearEffect(checkFilledRows(updatedBoard));
+      playClearEffect(checkCountFilledRows(updatedBoard));
       setScore(
         (prevScore) =>
           (prevScore += scoreValue(checkFilledRows(updatedBoard), level))
