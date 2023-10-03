@@ -19,17 +19,32 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+React built Tetris project. Using components from Conner Ardman's video ["3 Hours Coding Tetris Condensed To 20 Minutes | React.js"](https://www.youtube.com/watch?v=UuzcvFVH4DQ), was initially used as a base to understand how the gameboard and pieces could be implmented, then was built upon further by myself to practice using React and CSS as well as create a more exciting user experience. Enjoy!
+
+
+Sounds used:
+* Main Menu Song sourced from "Tetris In-Flight"
+* Sound Effects are sourced from "Tetris 99"
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-
+* ![JavaScript]
+* ![CSS]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+* []()
+* []()
+* []()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[CSS]:https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white
+[JavaScript]:https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
