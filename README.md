@@ -35,6 +35,10 @@ Sounds used:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+## Future Improvements
+Implementation of a multiplayer game mode, similar to that Jstris or Tetris Battles, will be considered through creating a back-end, to emit socket information to and from users connected on the client side. 
+
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
