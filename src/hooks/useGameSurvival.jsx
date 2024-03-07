@@ -8,7 +8,7 @@ import {
   playClearEffect,
   playSoundEffect,
   changeSEVolume,
-  updateBoard,
+  updateBoard, initializeSounds,moveSE, hardDropSE, landingSE, gameOverSound, rotateSE, nextLevelSound
 } from "../helpers/helpers";
 import Korobeiniki from "../assets/audio/Korobeiniki.mp3";
 const korobeinikiAudio = new Audio(Korobeiniki);
@@ -36,6 +36,10 @@ export function useGameSurvival() {
   // Volume Functions
   changeSEVolume(soundEffectVolume);
   korobeinikiAudio.volume = volumeLevel;
+
+  useEffect(() => {
+    initializeSounds();
+  }, []);
 
   const [
     { board, position, tetrominoBlockType, tetromino },
@@ -127,7 +131,7 @@ export function useGameSurvival() {
         tetrominoBlockType,
         tetromino
       );
-      playSoundEffect("landing");
+      playSoundEffect(landingSE);
       playClearEffect(checkCountFilledRows(updatedBoard));
       setScore(
         (prevScore) =>
@@ -144,7 +148,7 @@ export function useGameSurvival() {
         setInGame(false);
         setGameOver(true);
         setIsRunning(false);
-        playSoundEffect("gameover");
+        playSoundEffect(gameOverSound);
         korobeinikiAudio.pause();
       }
       const newBlockType = randomTetromino();
@@ -171,7 +175,7 @@ export function useGameSurvival() {
     setGameSpeed(25);
   };
   const rotate = (tetromino) => {
-    playSoundEffect("rotate");
+    playSoundEffect(rotateSE);
     dispatchBoardState({ type: "rotate", tetromino: tetromino });
   };
   const fastDrop = (board, position, tetrominoBlockType, tetromino) => {
@@ -221,7 +225,7 @@ export function useGameSurvival() {
     if (numRowsCleared >= level * 10) {
       setLevel(Math.round(numRowsCleared / 10) + 1);
       setGameSpeed(800 - Math.round(numRowsCleared / 10) * 7);
-      playSoundEffect("nextlevel");
+      playSoundEffect(nextLevelSound);
     }
 
     if (korobeinikiAudio.ended && inGame) {
@@ -248,11 +252,11 @@ export function useGameSurvival() {
     const handleKeyDown = (event) => {
       switch (event.key) {
         case leftKey:
-          playSoundEffect("move");
+          playSoundEffect(moveSE);
           startMovement(moveLeft((movingLeft = true)));
           break;
         case rightKey:
-          playSoundEffect("move");
+          playSoundEffect(moveSE);
           startMovement(moveRight((movingRight = true)));
           break;
         case downKey:
@@ -265,7 +269,7 @@ export function useGameSurvival() {
           hold(tetrominoBlockType);
           break;
         case " ":
-          playSoundEffect("harddrop");
+          playSoundEffect(hardDropSE);
           startMovement(
             fastDrop(board, position, tetrominoBlockType, tetromino)
           );

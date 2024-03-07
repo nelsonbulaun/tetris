@@ -54,7 +54,7 @@ const ControlProvider = ({ children }) => {
 
   return (
     <ControlContext.Provider
-      value={{ leftKey, rightKey, upKey, downKey, reassigningDirection, setReassigningDirection }}
+      value={{ leftKey, rightKey, upKey, downKey, reassigningDirection, setReassigningDirection  }}
     >
       {children}
     </ControlContext.Provider>

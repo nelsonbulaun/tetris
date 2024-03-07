@@ -8,6 +8,7 @@ import {
   playClearEffect,
   playSoundEffect,
   changeSEVolume,
+  initializeSounds,moveSE, hardDropSE, landingSE, gameOverSound, rotateSE, finishSE
 } from "../helpers/helpers";
 import { useControlContext } from "../contexts/ControlContext";
 import Korobeiniki from "../assets/audio/Korobeiniki.mp3";
@@ -27,15 +28,20 @@ export function useGameFortyLines() {
   const [soundEffectVolume, setSoundEffectVolume] = useState(0.4);
   const keyRepeatDelay = 200;
   const {leftKey, rightKey, upKey, downKey} = useControlContext();
-
+  
   const [
     { board, position, tetrominoBlockType, tetromino },
     dispatchBoardState,
   ] = useBoard();
 
+
   // Volume Functions
   changeSEVolume(soundEffectVolume);
   korobeinikiAudio.volume = volumeLevel;
+
+  useEffect(() => {
+    initializeSounds();
+  }, []);
 
   const gameTick = useCallback(() => {
     if (bottomedOut(board, position, tetrominoBlockType, tetromino)) {
@@ -111,7 +117,7 @@ export function useGameFortyLines() {
         tetrominoBlockType,
         tetromino
       );
-      playSoundEffect("landing");
+      playSoundEffect(landingSE);
       playClearEffect(checkFilledRows(updatedBoard));
       if (
         bottomedOut(updatedBoard, { x: 3, y: 0 }, tetrominoBlockType, tetromino)
@@ -119,7 +125,7 @@ export function useGameFortyLines() {
         setInGame(false);
         setGameOver(true);
         setIsRunning(false);
-        playSoundEffect("gameover");
+        playSoundEffect(gameOverSound);
         korobeinikiAudio.pause();
       }
       const newBlockType = randomTetromino();
@@ -146,7 +152,7 @@ export function useGameFortyLines() {
     setGameSpeed(25);
   };
   const rotate = (tetromino) => {
-    playSoundEffect("rotate");
+    playSoundEffect(rotateSE);
     dispatchBoardState({ type: "rotate", tetromino: tetromino });
   };
   const fastDrop = (board, position, tetrominoBlockType, tetromino) => {
@@ -197,7 +203,7 @@ export function useGameFortyLines() {
       setInGame(false);
       setGameOver(true);
       korobeinikiAudio.pause();
-      playSoundEffect("finish");
+      playSoundEffect(finishSE);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -220,11 +226,11 @@ export function useGameFortyLines() {
     const handleKeyDown = (event) => {
       switch (event.key) {
         case leftKey:
-          playSoundEffect("move");
+          playSoundEffect(moveSE);
           startMovement(moveLeft((movingLeft = true)));
           break;
         case rightKey:
-          playSoundEffect("move");
+          playSoundEffect(moveSE);
           startMovement(moveRight((movingRight = true)));
           break;
         case downKey:
@@ -237,7 +243,7 @@ export function useGameFortyLines() {
           hold(tetrominoBlockType);
           break;
         case " ":
-          playSoundEffect("harddrop");
+          playSoundEffect(hardDropSE);
           startMovement(
             fastDrop(board, position, tetrominoBlockType, tetromino)
           );

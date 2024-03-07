@@ -12,17 +12,17 @@ import gameOverSoundFile from "../assets/audio/game-over.mp3";
 import rotateSoundEffect from "../assets/audio/se_game_rotate.wav";
 import finishSoundEffect from "../assets/audio/me_game_iget.wav";
 import moveSoundEffect from "../assets/audio/se_game_move.mp3";
-const singleSE = new Audio(singleSoundEffect);
-const doubleSE = new Audio(doubleSoundEffect);
-const tripleSE = new Audio(tripleSoundEffect);
-const tetrisSE = new Audio(tetrisSoundEffect);
-const nextLevelSound = new Audio(nextLevelSoundFile);
-const gameOverSound = new Audio(gameOverSoundFile);
-const rotateSE = new Audio(rotateSoundEffect);
-const moveSE = new Audio(moveSoundEffect);
-const hardDropSE = new Audio(hardDropSoundEffect);
-const landingSE = new Audio(landingSoundEffect);
-const finishSE = new Audio(finishSoundEffect);
+// const singleSE = new Audio(singleSoundEffect);
+// const doubleSE = new Audio(doubleSoundEffect);
+// const tripleSE = new Audio(tripleSoundEffect);
+// const tetrisSE = new Audio(tetrisSoundEffect);
+// const nextLevelSound = new Audio(nextLevelSoundFile);
+// const gameOverSound = new Audio(gameOverSoundFile);
+// const rotateSE = new Audio(rotateSoundEffect);
+// const moveSE = new Audio(moveSoundEffect);
+// const hardDropSE = new Audio(hardDropSoundEffect);
+// const landingSE = new Audio(landingSoundEffect);
+// const finishSE = new Audio(finishSoundEffect);
 
 export const createBoard = (rows = rowCount, columns = columnCount) => {
   return Array(rows)
@@ -102,58 +102,94 @@ export function rotateTetrominoClockwise(currentTetromino) {
   return rotatedShape;
 }
 
+let audioContext = new AudioContext();
+let gainNode = audioContext.createGain();
+gainNode.connect(audioContext.destination);
+
+// eslint-disable-next-line no-unused-vars
+let singleSE, doubleSE, tripleSE, tetrisSE, nextLevelSound, gameOverSound, rotateSE, moveSE, hardDropSE, landingSE, finishSE;
+
+function loadAudio(url, callback) {
+    let request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+
+    request.onload = function() {
+        audioContext.decodeAudioData(request.response, function(buffer) {
+            callback(buffer);
+        });
+    };
+
+    request.send();
+}
+
 export function playClearEffect(val) {
   switch (val) {
     case 1:
-      singleSE.play();
+      playSoundEffect(singleSE);
       break;
     case 2:
-      doubleSE.play();
+      playSoundEffect(doubleSE);
       break;
     case 3:
-      tripleSE.play();
+      playSoundEffect(tripleSE);
       break;
     case 4:
-      tetrisSE.play();
+      playSoundEffect(tetrisSE);
       break;
-  }
-}
-export function changeSEVolume(val) {
-  singleSE.volume = val;
-  doubleSE.volume = val;
-  tripleSE.volume = val;
-  tetrisSE.volume = val;
-  nextLevelSound.volume = val;
-  gameOverSound.volume = val;
-  rotateSE.volume = val;
-  moveSE.volume = val;
-}
-
-export function playSoundEffect(val) {
-  switch (val) {
-    case "nextlevel":
-      nextLevelSound.play();
-      break;
-    case "gameover":
-      gameOverSound.play();
-      break;
-    case "rotate":
-      rotateSE.play();
-      break;
-    case "move":
-      moveSE.play();
-      break;
-    case "harddrop":
-      hardDropSE.play();
-      break;
-    case "landing":
-      landingSE.play();
-      break;
-      case "finish":
-        finishSE.play();
-        break;
     default:
       break;
   }
+}
+
+export function playSoundEffect(buffer) {
+    let source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(gainNode);
+    console.log(buffer);
+
+    source.start();
+}
+
+export function initializeSounds() {
+    loadAudio(singleSoundEffect, function(buffer) {
+        singleSE = buffer;
+    });
+    loadAudio(doubleSoundEffect, function(buffer) {
+        doubleSE = buffer;
+    });
+    loadAudio(tripleSoundEffect, function(buffer) {
+        tripleSE = buffer;
+    });
+    loadAudio(tetrisSoundEffect, function(buffer) {
+        tetrisSE = buffer;
+    });
+    loadAudio(nextLevelSoundFile, function(buffer) {
+        nextLevelSound = buffer;
+    });
+    loadAudio(gameOverSoundFile, function(buffer) {
+        gameOverSound = buffer;
+    });
+    loadAudio(rotateSoundEffect, function(buffer) {
+        rotateSE = buffer;
+    });
+    loadAudio(moveSoundEffect, function(buffer) {
+        moveSE = buffer;
+    });
+    loadAudio(hardDropSoundEffect, function(buffer) {
+        hardDropSE = buffer;
+    });
+    loadAudio(landingSoundEffect, function(buffer) {
+        landingSE = buffer;
+    });
+    loadAudio(finishSoundEffect, function(buffer) {
+        finishSE = buffer;
+    });
+}
+export {singleSE, doubleSE, tripleSE, nextLevelSound,gameOverSound, rotateSE, moveSE, hardDropSE, 
+  landingSE, finishSE}
+
+export function changeSEVolume(val) {
+    gainNode.gain.value = val;
 }
 
