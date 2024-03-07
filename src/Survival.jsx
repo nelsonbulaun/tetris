@@ -8,6 +8,7 @@ import {
 } from "./helpers/helpers";
 import { tetrominoArrays } from "./components/tetrominos";
 import { Link } from "react-router-dom";
+import { useControlContext } from "./contexts/ControlContext";
 
 export const updateNextBoard = (
   board,
@@ -45,13 +46,21 @@ function Survival() {
     volumeLevel,
     setVolumeLevel,
     soundEffectVolume, setSoundEffectVolume,
+    // downKey,
+    // upKey,
+    // rightKey,
+    // leftKey,
+    // reassigningDirection,
+    // setReassigningDirection,
+  } = useGameSurvival();
+  const {
     downKey,
     upKey,
     rightKey,
     leftKey,
     reassigningDirection,
     setReassigningDirection,
-  } = useGameSurvival();
+} = useControlContext();
   const idleBoard = createBoard();
   const heldBoard = createBoard(4, 4);
 
@@ -139,13 +148,7 @@ function Survival() {
         <div className="controls">
           <div className="pauseContainer">
             <div className="menuHeader">Paused</div>
-            <button className="startButton" onClick={start}>
-              {" "}
-              Restart Game
-            </button>{" "}
-            <Link to={"/tetris"}>
-              <button>Return to Title Screen</button>
-            </Link>
+
             Music Volume:
             <input
               type="range"
@@ -180,7 +183,7 @@ function Survival() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("left", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("left", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -199,7 +202,7 @@ function Survival() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("right", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("right", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -214,7 +217,7 @@ function Survival() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("up", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("up", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -231,11 +234,18 @@ function Survival() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("down", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("down", e)}>
                   Reassign
                 </button>{" "}
               </div>
             </div>
+            <button className="startButton" onClick={start}>
+              {" "}
+              Restart Game
+            </button>{" "}
+            <Link to={"/tetris"}>
+              <button>Main Menu</button>
+            </Link>
           </div>
         </div>
       ) : (

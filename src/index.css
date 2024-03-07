@@ -67,8 +67,8 @@ button:focus-visible {
 
 .pauseContainer {
   display: flex;
-  height: fit-content;
-  width: fit-content;
+  height: 35vh;
+  width: 50vh;
   vertical-align: middle;
   display: flex;
   flex-direction: column;
@@ -88,6 +88,8 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 45%;
+  gap: 2vh;
 }
 .controlLine {
   width: 100%;
@@ -113,7 +115,7 @@ button:focus-visible {
   text-align: center;
   margin-bottom: 2vh;
 }
-.volumeControl{
+.volumeControl {
   vertical-align: middle;
   display: flex;
   flex-direction: column;
@@ -123,6 +125,18 @@ button:focus-visible {
 .startButton {
   align-content: center;
   align-self: center;
+}
+.pauseButtons {
+  justify-self: flex-end;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 0.8em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 .gameOverScreen {
   display: flex;
@@ -142,7 +156,6 @@ button:focus-visible {
   row-gap: 2px;
 }
 .container {
-  
   height: fit-content;
   width: 100vw;
   position: relative;
@@ -383,8 +396,8 @@ button:focus-visible {
   src: url("./assets/PressStart2P-Regular.ttf");
 }
 
-.titleMusic{
-  place-self:center;
+.titleMusic {
+  place-self: center;
   width: 10%;
   position: absolute;
   bottom: 0;

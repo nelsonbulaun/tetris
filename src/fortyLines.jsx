@@ -8,6 +8,7 @@ import {
 } from "./helpers/helpers";
 import { tetrominoArrays } from "./components/tetrominos";
 import { Link } from "react-router-dom";
+import { useControlContext } from "./contexts/ControlContext";
 
 export const updateNextBoard = (
   board,
@@ -43,14 +44,16 @@ function FortyLines() {
     volumeLevel,
     setVolumeLevel,
     soundEffectVolume,
-    setSoundEffectVolume,
+    setSoundEffectVolume
+  } = useGameFortyLines();
+  const {
     downKey,
     upKey,
     rightKey,
     leftKey,
     reassigningDirection,
     setReassigningDirection,
-  } = useGameFortyLines();
+  } = useControlContext();
   const minutes = Math.floor((time % 360000) / 6000);
   const seconds = Math.floor((time % 6000) / 100);
   const milliseconds = time % 100;
@@ -158,28 +161,28 @@ function FortyLines() {
           <div className="pauseContainer">
             <div className="menuHeader">Paused</div>
             <div className="volumeControl">
-            Music Volume:
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.02}
-              value={volumeLevel}
-              onChange={(event) => {
-                setVolumeLevel(event.target.valueAsNumber);
-              }}
-            />
-            Sound Effect Volume:
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.02}
-              value={soundEffectVolume}
-              onChange={(event) => {
-                setSoundEffectVolume(event.target.valueAsNumber);
-              }}
-            />
+              Music Volume:
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.02}
+                value={volumeLevel}
+                onChange={(event) => {
+                  setVolumeLevel(event.target.valueAsNumber);
+                }}
+              />
+              Sound Effect Volume:
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.02}
+                value={soundEffectVolume}
+                onChange={(event) => {
+                  setSoundEffectVolume(event.target.valueAsNumber);
+                }}
+              />
             </div>
             <div className="controlLine">
               <div className="controlPart">
@@ -193,7 +196,7 @@ function FortyLines() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("left", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("left", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -212,7 +215,7 @@ function FortyLines() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("right", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("right", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -227,7 +230,7 @@ function FortyLines() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("up", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("up", e)}>
                   Reassign
                 </button>{" "}
               </div>
@@ -244,13 +247,11 @@ function FortyLines() {
                 </a>{" "}
               </div>
               <div className="controlPart">
-                <button onClick={(e) => handleKeyReassignment("down", e)}>
+                <button className="pauseButtons" onClick={(e) => handleKeyReassignment("down", e)}>
                   Reassign
                 </button>{" "}
               </div>
             </div>
-
-
             <button className="startButton" onClick={start}>
               {" "}
               Restart Game
