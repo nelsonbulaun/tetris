@@ -39,9 +39,17 @@ function FortyLines() {
     paused,
     isRunning,
     time,
-    gameOver, volumeLevel,
+    gameOver,
+    volumeLevel,
     setVolumeLevel,
-    soundEffectVolume, setSoundEffectVolume
+    soundEffectVolume,
+    setSoundEffectVolume,
+    downKey,
+    upKey,
+    rightKey,
+    leftKey,
+    reassigningDirection,
+    setReassigningDirection,
   } = useGameFortyLines();
   const minutes = Math.floor((time % 360000) / 6000);
   const seconds = Math.floor((time % 6000) / 100);
@@ -49,6 +57,11 @@ function FortyLines() {
   console.log(time);
   const idleBoard = createBoard();
   const heldBoard = createBoard(4, 4);
+
+  const handleKeyReassignment = (direction) => {
+    setReassigningDirection(direction);
+  };
+
   function holdingBoard(heldBlock) {
     if (heldBlock === null) {
       return heldBoard;
@@ -144,13 +157,7 @@ function FortyLines() {
         <div className="controls">
           <div className="pauseContainer">
             <div className="menuHeader">Paused</div>
-            <button className="startButton" onClick={start}>
-              {" "}
-              Restart Game
-            </button>{" "}
-            <Link to={"/tetris"}>
-              <button>Return to Title Screen</button>
-            </Link>
+            <div className="volumeControl">
             Music Volume:
             <input
               type="range"
@@ -163,7 +170,7 @@ function FortyLines() {
               }}
             />
             Sound Effect Volume:
-               <input
+            <input
               type="range"
               min={0}
               max={1}
@@ -173,6 +180,84 @@ function FortyLines() {
                 setSoundEffectVolume(event.target.valueAsNumber);
               }}
             />
+            </div>
+            <div className="controlLine">
+              <div className="controlPart">
+                <a>Left: </a>{" "}
+              </div>
+              <div className="controlPart">
+                <a
+                  className={reassigningDirection === "left" ? "reassign" : " "}
+                >
+                  {leftKey}
+                </a>{" "}
+              </div>
+              <div className="controlPart">
+                <button onClick={(e) => handleKeyReassignment("left", e)}>
+                  Reassign
+                </button>{" "}
+              </div>
+            </div>
+            <div className="controlLine">
+              <div className="controlPart">
+                <a>Right: </a>{" "}
+              </div>
+              <div className="controlPart">
+                <a
+                  className={
+                    reassigningDirection === "right" ? "reassign" : " "
+                  }
+                >
+                  {rightKey}
+                </a>{" "}
+              </div>
+              <div className="controlPart">
+                <button onClick={(e) => handleKeyReassignment("right", e)}>
+                  Reassign
+                </button>{" "}
+              </div>
+            </div>
+            <div className="controlLine">
+              <div className="controlPart">
+                <a>Up: </a>{" "}
+              </div>
+              <div className="controlPart">
+                <a className={reassigningDirection === "up" ? "reassign" : " "}>
+                  {upKey}
+                </a>{" "}
+              </div>
+              <div className="controlPart">
+                <button onClick={(e) => handleKeyReassignment("up", e)}>
+                  Reassign
+                </button>{" "}
+              </div>
+            </div>
+            <div className="controlLine">
+              <div className="controlPart movementDiv">
+                <a>Down: </a>{" "}
+              </div>
+              <div className="controlPart">
+                <a
+                  className={reassigningDirection === "down" ? "reassign" : " "}
+                >
+                  {downKey}
+                </a>{" "}
+              </div>
+              <div className="controlPart">
+                <button onClick={(e) => handleKeyReassignment("down", e)}>
+                  Reassign
+                </button>{" "}
+              </div>
+            </div>
+
+
+            <button className="startButton" onClick={start}>
+              {" "}
+              Restart Game
+            </button>{" "}
+            <Link to={"/tetris"}>
+              <button>Menu Screen</button>
+            </Link>
           </div>
         </div>
       ) : (

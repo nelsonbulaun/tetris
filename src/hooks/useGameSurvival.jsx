@@ -28,6 +28,11 @@ export function useGameSurvival() {
   const [level, setLevel] = useState(1);
   const [volumeLevel, setVolumeLevel] = useState(0.4);
   const [soundEffectVolume, setSoundEffectVolume] = useState(0.4);
+  const [leftKey, setLeftKey] = useState("ArrowLeft");
+  const [rightKey, setRightKey] = useState("ArrowRight");
+  const [upKey, setUpKey] = useState("ArrowUp");
+  const [downKey, setDownKey] = useState("ArrowDown");
+
 
 
   // Volume Functions
@@ -53,6 +58,38 @@ export function useGameSurvival() {
     }
     gameTick();
   }, gameSpeed);
+
+  const [reassigningDirection, setReassigningDirection] = useState(null);
+
+  useEffect(() => {
+    const handleKeyReassignment = (event) => {
+      if (reassigningDirection) {
+        switch (reassigningDirection) {
+          case "left":
+            setLeftKey(event.key);
+            break;
+          case "right":
+            setRightKey(event.key);
+            break;
+          case "up":
+            setUpKey(event.key);
+            break;
+          case "down":
+            setDownKey(event.key);
+            break;
+          default:
+            break;
+        }
+        setReassigningDirection(null); // Reset reassigning direction
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyReassignment);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyReassignment);
+    };
+  }, [reassigningDirection]);
 
   const start = useCallback(() => {
     setInGame(true);
@@ -244,18 +281,18 @@ export function useGameSurvival() {
 
     const handleKeyDown = (event) => {
       switch (event.key) {
-        case "ArrowLeft":
+        case leftKey:
           playSoundEffect("move");
           startMovement(moveLeft((movingLeft = true)));
           break;
-        case "ArrowRight":
+        case rightKey:
           playSoundEffect("move");
           startMovement(moveRight((movingRight = true)));
           break;
-        case "ArrowDown":
+        case downKey:
           moveDown();
           break;
-        case "ArrowUp":
+        case upKey:
           rotate(tetromino);
           break;
         case "Shift":
@@ -311,6 +348,12 @@ export function useGameSurvival() {
     setVolumeLevel,
     soundEffectVolume,
     setSoundEffectVolume,
+    upKey,
+    downKey,
+    leftKey,
+    rightKey,
+    reassigningDirection,
+    setReassigningDirection,
   };
 }
 
